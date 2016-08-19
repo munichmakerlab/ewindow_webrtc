@@ -1,6 +1,8 @@
 # eWindow - WebRTC
 First testing prototype. Not quite that fast, video is noticably jumpy, but at least it works with most webcams.
 
+Based off of EasyRTC: https://github.com/priologic/easyrtc
+
 ## Setup Server
 * Install requirements
   `npm install easyrtc express socket.io@0.9.16`
@@ -35,6 +37,9 @@ certtool --generate-certificate --load-privkey ldap_slapd_key.pem --load-ca-cert
 ## Setup Client
 Using a RPi 3
 * Install Raspbian on SD card, and boot
+  * Download: https://www.raspberrypi.org/downloads/raspbian/
+  * I used the full desktop image
+  * How to write the image to an SD card: https://www.raspberrypi.org/documentation/installation/installing-images/
 * Install Chromium
   * Follow the guide at https://www.raspberrypi.org/forums/viewtopic.php?t=121195
   * No need for the youtube plugin

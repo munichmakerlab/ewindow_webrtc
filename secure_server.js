@@ -12,8 +12,8 @@ httpApp.use(express.static(__dirname + "/static/"));
 // Start Express https server on port 8443
 var webServer = https.createServer(
 {
-    key:  fs.readFileSync("privkey.pem"),
-    cert: fs.readFileSync("cert.pem")
+    key:  fs.readFileSync("ewindow_key.pem"),
+    cert: fs.readFileSync("ewindow_cert.pem")
 },
 httpApp).listen(8443);
 
