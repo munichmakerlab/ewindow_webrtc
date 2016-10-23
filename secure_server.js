@@ -9,6 +9,18 @@ var easyrtc = require("easyrtc");   // EasyRTC external module
 var httpApp = express();
 httpApp.use(express.static(__dirname + "/static/"));
 
+var onAuthenticate = function(socket, easyrtcid, appName, username, credential, easyrtcAuthMessage, next){
+  console.log("Authenticating user " + username + " for application " + appName + " and token " + credential.token);
+  if (appName == "adminSite" && username != "handsomeJack"){
+    next(new easyrtc.util.ConnectionError("Failed our private auth."));
+  }
+  else {
+    next(null);
+  }
+};
+
+easyrtc.events.on("authenticate", onAuthenticate);
+
 // Start Express https server on port 8443
 var webServer = https.createServer(
 {
@@ -18,7 +30,7 @@ var webServer = https.createServer(
 httpApp).listen(8443);
 
 // Start Socket.io so it attaches itself to Express server
-var socketServer = io.listen(webServer, {"log level":1});
+var socketServer = io.listen(webServer, {"log level":2});
 
 // Start EasyRTC server
 var rtc = easyrtc.listen(httpApp, socketServer);
