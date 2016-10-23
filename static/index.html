@@ -3,25 +3,52 @@
   <head>
     <title>EasyRTC Demo: Simple Video+Audio</title>
     <link rel="stylesheet" type="text/css" href="/easyrtc/easyrtc.css" />
- 
+
     <!-- Assumes global locations for socket.io.js and easyrtc.js -->
     <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="/easyrtc/easyrtc.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
- 
+    <style>
+	video.bigVideo	 {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    background: url(polina.jpg) no-repeat;
+    background-size: cover;
+}
+video.ontopVideo	 {
+position: fixed;
+bottom: 5%;
+right: 5%;
+max-width: 25%;
+max-height: 25%;
+width: auto;
+height: auto;
+z-index: -80;
+}
+	</style>
   </head>
   <body onload="connect();">
         <div id="demoContainer">
-          <div id="connectControls">
+          <div id="connectControls" style="background:rgba(255,255,255,128);">
             <div id="iam">Not yet connected...</div>
             <br />
             <strong>Connected users:</strong>
             <div id="otherClients"></div>
           </div>
           <div id="videos">
-            <video autoplay="autoplay" class="easyrtcMirror" id="selfVideo" muted="muted" volume="0" ></video>
+            <video autoplay="autoplay" class="easyrtcMirror ontopVideo" id="selfVideo" muted="muted" volume="0"></video>
             <div style="position:relative;float:left;">
-            <video autoplay="autoplay" id="callerVideo"></video>
+            <video autoplay="autoplay" id="callerVideo" class="bigVideo"></video>
             </div>
             <!-- each caller video needs to be in it"s own div so it"s close button can be positioned correctly -->
           </div>
