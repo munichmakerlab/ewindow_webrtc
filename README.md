@@ -3,6 +3,26 @@ First testing prototype. Not quite that fast, video is noticably jumpy, but at l
 
 Based off of EasyRTC: https://github.com/priologic/easyrtc
 
+## Target architecture
+```
+    +------------------------+           +------------------------+
+    | +--------------------+ |           |  Server                |
+    | |  Browser           +-----------> |  node.js + easyRTC     |
++---> |  WebRTC App        +----+        |  Public or PeerVPN?    |
+|   | +--------------------+ |  |        |                        |
+|   | +--------------------+ |  |        +------------------------+
+|   | | Button LEDs        | <--+
+|   | | Local Websercer    | |
+|   | +--------------------+ |
+|   | +--------------------+ |
+|   | | Button Presses     | |
++-----+ Python App         | |
+    | | Emulates Keyboard  | |
+    | +--------------------+ |
+    |       RaspberryPi      |
+    +------------------------+
+```
+
 ## Setup Server
 * Install requirements
   `npm install easyrtc express socket.io@0.9.16`
@@ -39,14 +59,5 @@ Using a RPi 3
 * Install Raspbian on SD card, and boot
   * Download: https://www.raspberrypi.org/downloads/raspbian/
   * I used the full desktop image
-  * How to write the image to an SD card: https://www.raspberrypi.org/documentation/installation/installing-images/
-* Install Chromium
-  * Follow the guide at https://www.raspberrypi.org/forums/viewtopic.php?t=121195
-  * No need for the youtube plugin
-
-```
-wget -qO - http://bintray.com/user/downloadSubjectPublicKey?username=bintray | sudo apt-key add -
-echo "deb http://dl.bintray.com/kusti8/chromium-rpi jessie main" | sudo tee -a /etc/apt/sources.list
-sudo apt-get update
-sudo apt-get install chromium-browser
-```
+  * Write the SD card using Etcher: https://www.etcher.io/
+* Chromium is now part of the standard image
