@@ -23,6 +23,22 @@ var QueryString = function () {
   }
   return query_string;
 }();
+// ----
+
+document.addEventListener('keydown', (event) => {
+  const keyName = event.key;
+
+  if (keyName === 'Control') {
+    // not alert when only Control key is pressed.
+    return;
+  }
+
+  if (keyName === "a") {
+	  console.log(`Key pressed ${keyName}`);
+  } else if (keyName === "b") {
+  	console.log(`Key pressed ${keyName}`);
+  }
+}, false);
 
 function connect() {
   easyrtc.setVideoDims(640,480);
@@ -70,7 +86,7 @@ function performCall(otherEasyrtcid) {
 
 function loginSuccess(easyrtcid) {
   selfEasyrtcid = easyrtcid;
-  document.getElementById("iam").innerHTML = "I am " + easyrtc.cleanId(easyrtcid);
+  document.getElementById("iam").innerHTML = "I am " + easyrtc.idToName(easyrtcid);
 }
 
 

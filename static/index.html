@@ -22,8 +22,6 @@
     -moz-transform: translateX(-50%) translateY(-50%);
     -webkit-transform: translateX(-50%) translateY(-50%);
     transform: translateX(-50%) translateY(-50%);
-    background: url(polina.jpg) no-repeat;
-    background-size: cover;
 }
 video.ontopVideo	 {
 position: fixed;
@@ -35,18 +33,25 @@ width: auto;
 height: auto;
 z-index: -80;
 }
+
+.mirrored {
+	-moz-transform: scale(-1, 1); \
+-webkit-transform: scale(-1, 1); -o-transform: scale(-1, 1); \
+transform: scale(-1, 1); filter: FlipH;
+}
 	</style>
   </head>
   <body onload="connect();">
         <div id="demoContainer">
-          <div id="connectControls" style="background:rgba(255,255,255,128);">
+          <div id="connectControls" style="background:rgba(255,255,255,0.8); width: 20%; padding: 0.5em; border-radius: 0.3em;">
+			  <b>eWindow</b>
             <div id="iam">Not yet connected...</div>
             <br />
             <strong>Connected users:</strong>
             <div id="otherClients"></div>
           </div>
           <div id="videos">
-            <video autoplay="autoplay" class="easyrtcMirror ontopVideo" id="selfVideo" muted="muted" volume="0"></video>
+            <video autoplay="autoplay" class="easyrtcMirror ontopVideo mirrored" id="selfVideo" muted="muted" volume="0"></video>
             <div style="position:relative;float:left;">
             <video autoplay="autoplay" id="callerVideo" class="bigVideo"></video>
             </div>

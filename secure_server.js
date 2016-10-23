@@ -10,7 +10,7 @@ var httpApp = express();
 httpApp.use(express.static(__dirname + "/static/"));
 
 var onAuthenticate = function(socket, easyrtcid, appName, username, credential, easyrtcAuthMessage, next){
-  console.log("Authenticating user " + username + " for application " + appName + " and token " + credential.token);
+  console.log(`Authenticating user "${username}" for application "${appName}" and token "${credential.token}"`);
   if (appName == "adminSite" && username != "handsomeJack"){
     next(new easyrtc.util.ConnectionError("Failed our private auth."));
   }
