@@ -34,9 +34,23 @@ document.addEventListener('keydown', (event) => {
   }
 
   if (keyName === "a") {
-	  console.log(`Key pressed ${keyName}`);
+    console.log(`Key pressed ${keyName}`);
   } else if (keyName === "b") {
-  	console.log(`Key pressed ${keyName}`);
+    if ( easyrtc.getConnectionCount() > 0 ) {
+      easyrtc.hangupAll();
+  } else {
+
+	  var len = 0;
+	  var easyrtcid;
+	  for(easyrtcid in window.otherOccupants) {
+		  len++;
+	  }
+	  if (len == 1) {
+	  	performCall(easyrtcid);
+	  } else {
+		  console.log("more than one");
+	  }
+  }
   }
 }, false);
 
@@ -60,6 +74,7 @@ function clearConnectList() {
 function convertListToButtons (roomName, data, isPrimary) {
   clearConnectList();
   var otherClientDiv = document.getElementById("otherClients");
+  window.otherOccupants = data;
   for(var easyrtcid in data) {
     var button = document.createElement("button");
     button.onclick = function(easyrtcid) {
@@ -87,6 +102,7 @@ function performCall(otherEasyrtcid) {
 function loginSuccess(easyrtcid) {
   selfEasyrtcid = easyrtcid;
   document.getElementById("iam").innerHTML = "I am " + easyrtc.idToName(easyrtcid);
+  easyrtc.updatePresence("chat", "idle");
 }
 
 
