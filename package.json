@@ -1,0 +1,27 @@
+{
+  "name": "ewindow",
+  "version": "0.1.0",
+  "description": "Multifactory e(lectronic)Window",
+  "main": "secure_server.js",
+  "dependencies": {
+    "easyrtc": "^1.0.15",
+    "express": "^4.14.0",
+    "socket.io": "^0.9.16"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node secure_server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/munichmakerlab/ewindow_webrtc.git"
+  },
+  "author": "Severin Schols",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/munichmakerlab/ewindow_webrtc/issues"
+  },
+  "homepage": "https://github.com/munichmakerlab/ewindow_webrtc#readme",
+  "private": true
+}
