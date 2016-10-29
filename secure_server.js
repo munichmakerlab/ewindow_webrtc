@@ -1,5 +1,6 @@
 // Load required modules
 var https   = require("https");     // https server core module
+var http   = require("http");     // https server core module
 var fs      = require("fs");        // file system core module
 var express = require("express");   // web framework external module
 var io      = require("socket.io"); // web socket external module
@@ -21,13 +22,21 @@ var onAuthenticate = function(socket, easyrtcid, appName, username, credential, 
 
 easyrtc.events.on("authenticate", onAuthenticate);
 
-// Start Express https server on port 8443
-var webServer = https.createServer(
-{
-    key:  fs.readFileSync("ewindow_key.pem"),
-    cert: fs.readFileSync("ewindow_cert.pem")
-},
-httpApp).listen(8443);
+
+var webServer;
+if (process.argv.length == 3 && process.argv[2] == "dev") {
+	console.log("Starting development server with TLS on port 8443");
+	webServer = https.createServer(
+		{
+			key:  fs.readFileSync("ewindow_key.pem"),
+			cert: fs.readFileSync("ewindow_cert.pem")
+		}, httpApp).listen(8443);
+} else {
+	console.log("Starting server without TLS on port 8080");
+	webServer = http.createServer(httpApp).listen(8080);
+
+}
+
 
 // Start Socket.io so it attaches itself to Express server
 var socketServer = io.listen(webServer, {"log level":2});
