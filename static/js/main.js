@@ -1,5 +1,3 @@
-var selfEasyrtcid = "";
-
 // https://stackoverflow.com/a/979995
 var QueryString = function () {
   // This function is anonymous, is executed immediately and
@@ -54,13 +52,77 @@ document.addEventListener('keydown', (event) => {
   }
 }, false);
 
+
+$(document).ready(function() {
+  var token = localStorage.getItem("token");
+  if (token) {
+    $('#loginForm').hide();
+    $('#logout').show(500);
+    $('#demoContainer').show(500);
+    connect();
+  } else {
+    $('#loginForm').show(500);
+    $('#logout').hide();
+    $('#demoContainer').hide();
+  }
+});
+
+
+$("#logout").click(function(){
+  var token = localStorage.getItem("token");
+  $.ajax({
+    url: '/auth/logout',
+    type: 'POST',
+    data: {token: token},
+    success: function(data) {
+      if (data.status) {
+        localStorage.removeItem("token");
+        var easyrtcid = localStorage.getItem("easyrtcid");
+        easyrtc.hangup(easyrtcid);
+        $('#loginForm').show(500);
+        $('#logout').hide();
+        $('#demoContainer').hide();
+        location.reload(true);
+      }
+    }
+  });
+});
+
+
+$('#loginForm button').click(function(){
+  console.log('login');
+  var username = $('#inputUser').val();
+  var password = $('#inputPassword').val();
+  $.ajax({
+    url: '/auth/authenticate',
+    type: 'POST',
+    data: {name: username, password: password},
+    success: function(data) {
+      if (data.token) {
+        $('#loginForm').hide();
+        $('#logout').show(500);
+        $('#demoContainer').show(500);
+        localStorage.setItem("user", data.user.name);
+        localStorage.setItem("token", data.token);
+        connect();
+      }
+    }
+  });
+});
+
+
 function connect() {
+  var user = localStorage.getItem("user");
+  var token = localStorage.getItem("token");
   easyrtc.setVideoDims(640,480);
   easyrtc.setRoomOccupantListener(convertListToButtons);
-  easyrtc.setUsername(QueryString.name ? QueryString.name : "guest");
-  easyrtc.setCredential({"token":"abcdefghijklm"});
+  if (!user) {
+    user = QueryString.name ? QueryString.name : "guest";
+  }
+  easyrtc.setUsername(user);
+  easyrtc.setCredential({"token": token});
   easyrtc.easyApp("easyrtc.audioVideoSimple", "selfVideo", ["callerVideo"], loginSuccess, loginFailure);
- }
+}
 
 
 function clearConnectList() {
@@ -100,7 +162,7 @@ function performCall(otherEasyrtcid) {
 
 
 function loginSuccess(easyrtcid) {
-  selfEasyrtcid = easyrtcid;
+  localStorage.setItem("easyrtcid", easyrtcid);
   document.getElementById("iam").innerHTML = "I am " + easyrtc.idToName(easyrtcid);
   easyrtc.updatePresence("chat", "idle");
 }
