@@ -55,15 +55,36 @@ document.addEventListener('keydown', (event) => {
 
 $(document).ready(function() {
   var token = localStorage.getItem("token");
+  var username = localStorage.getItem("user");
   if (token) {
     $('#loginForm').hide();
     $('#logout').show(500);
     $('#demoContainer').show(500);
+    if (username === 'eWindowMaster'){
+      $('#admin').show(500);
+    }
     connect();
   } else {
     $('#loginForm').show(500);
     $('#logout').hide();
     $('#demoContainer').hide();
+    $('#admin').hide();
+  }
+});
+
+
+$("#admin").click(function(){
+  var token = localStorage.getItem("token");
+  var username = localStorage.getItem("user");
+  if (username === 'eWindowMaster'){
+    $.ajax({
+      url: '/admin/',
+      type: 'GET',
+      headers: {"Authorization": "Bearer " + token},
+      success: function(data) {
+        location.assign("/admin");
+      }
+    });
   }
 });
 

@@ -1,10 +1,11 @@
-var express = require('express');
-var router = express.Router();
-var jwt = require('jsonwebtoken');
-var mongoose = require('mongoose');
-var User = require('../models/User.js');
-var Auth = require('../auth.js');
-var config = require('../config');
+var express   = require('express');
+var router    = express.Router();
+var jwt       = require('jsonwebtoken');
+var mongoose  = require('mongoose');
+var User      = require('../models/User.js');
+var Auth      = require('../auth.js');
+var config    = require('../config');
+var ip        = require('ip');
 
 /* GET /auth/setup/ */
 router.get('/setup', function(req, res) {
@@ -21,6 +22,7 @@ router.get('/setup', function(req, res) {
         adminUser._id = mongoose.Types.ObjectId();
         adminUser.name = 'eWindowMaster';
         adminUser.active = true;
+        adminUser.ip = ip.address();
         adminUser.password = hashPassword;
         adminUser.save(function(err, user) {
           user.token = jwt.sign({name: user.name}, config.secret, {expiresIn: '10 years'});
@@ -80,6 +82,7 @@ router.post('/signin/', function(req, res) {
         newUser._id = mongoose.Types.ObjectId();
         newUser.name = req.body.name;
         newUser.active = false;
+        newUser.ip = ip.address();
         newUser.save(function(err, user) {
           user.token = jwt.sign({name: user.name}, config.secret, {expiresIn: '10 years'});
           user.save(function(err, userNew) {

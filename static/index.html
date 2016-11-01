@@ -76,7 +76,7 @@
       }
 	  </style>
   </head>
-  <body>
+  <body id="page">
     <div id="loginContainer" class="container">
       <form id="loginForm" class="form-signin">
         <h2 class="form-signin-heading">Please sign in</h2>
@@ -89,10 +89,13 @@
       </form>
     </div> <!-- /container -->
 
-    <button id="logout" type="button" class="btn btn-default pull-right">
-      <span class="glyphicon glyphicon-off" aria-hidden="true"></span> Logout
+    <button id="logout" type="button" class="btn btn-default btn-sm pull-right">
+      <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
     </button>
-    
+    <button id="admin" type="button" class="btn btn-default btn-sm pull-right">
+      <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+    </button>
+
     <div id="demoContainer">
       <div id="connectControls" style="background:rgba(255,255,255,0.8); width: 20%; padding: 0.5em; border-radius: 0.3em;">
 	      <strong>eWindow</strong>

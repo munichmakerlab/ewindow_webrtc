@@ -10,6 +10,7 @@ var easyrtc     = require("easyrtc");       // EasyRTC external module
 var jwt         = require('jsonwebtoken');  // json based token authorization
 var mongoose    = require('mongoose');      // mongodb controller
 var route_auth  = require('./routes/auth'); // route to login and register users
+var route_admin = require('./routes/admin');// route to admin page (manage data and user)
 var Auth        = require('./auth.js');     // service to authenticate by token
 
 // connect local mongodb database
@@ -36,6 +37,7 @@ httpApp.use(function(req, res, next) {
 
 // use routes for REST API
 httpApp.use('/auth', route_auth);
+httpApp.use('/admin', route_admin);
 
 var onAuthenticate = function(socket, easyrtcid, appName, username, credential, easyrtcAuthMessage, next) {
   console.log(`Authenticating user "${username}" for application "${appName}" and token "${credential.token}"`);

@@ -54,13 +54,24 @@ this.ensureAuthorized = function(req, res, next) {
     res.status(401).json({err: 'No Authorization header was found'});
   }
   if (req.token) {
-    var response = this.checkAuth(req.token);
-    if (response.err) {
-      res.status(response.status).json({err: response.err});
-    } else {
-      req.user = response;
-      next();
-    }
+    jwt.verify(req.token, config.secret, function(err, decoded) {
+      if (err) {
+        res.status(401).json({err: err});
+      } else {
+        User.findOne({'token': req.token}, function(err, user) {
+          if (err) {
+            res.status(401).json({err: 'Error occured: ' + err});
+          } else {
+            if (user) {
+              req.user = user;
+              next();
+            } else {
+              res.status(401).json({err: 'No User Authorization found'});
+            }
+          }
+        });
+      }
+    });
   } else {
     res.status(401).json({err: 'No User Authorization found'});
   }
