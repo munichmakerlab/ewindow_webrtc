@@ -9,6 +9,15 @@ $(document).ready(function() {
   }
 });
 
+function renderTemplate(template, data) {
+  var content = $('#'+template).html();
+  $.each(data, function(key,val){
+    var searchStr = '{{' + key + '}}';
+    content = content.replace(searchStr, val);
+  });
+  return content;
+}
+
 function loadUsers() {
   var token = localStorage.getItem("token");
   $.ajax({
@@ -17,11 +26,14 @@ function loadUsers() {
     headers: {"Authorization": "Bearer " + token},
     success: function(data) {
       data.forEach(function(user) {
-        var template = $('#hidden-template').html()
+        user.active = user.active ? 'checked' : '';
+        var template = renderTemplate('hidden-template', user);
+        /*var template = $('#hidden-template').html()
                         .replace('{USER_ACTIVE}', user.active ? 'checked':'')
                         .replace('{USER_NAME}', user.name)
                         .replace('{USER_IP}', user.ip)
                         .replace('{USER_LAST_LOGIN}', user.last_login);
+        */
         $("#userlist").append(template);
       });
     }
