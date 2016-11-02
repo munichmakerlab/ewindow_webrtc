@@ -73,6 +73,11 @@ router.put('/user/:id', Auth.ensureAuthorized, function(req, res, next) {
   var id = req.params.id;
   var update = req.body;
   delete update._id
+  if (update.password) {
+    update.password = Auth.sha512(update.password);
+  } else {
+    delete update.password;
+  }
   User.findByIdAndUpdate(id, update, function (err, post) {
     if (err) {
       res.json({err: 'Error occured: ' + err});

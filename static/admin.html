@@ -76,8 +76,8 @@
     </nav>
 
     <div class="container">
-      <h1 class="page-header">Dashboard</h1>
-
+      <h1 class="page-header">Dashboard
+      <small data-placement="top" data-toggle="tooltip" title="New"><button class="pull-right btn btn-success" data-title="New" data-toggle="modal" data-target="#dlgNewUser" ><span class="glyphicon glyphicon-plus"></span></button></small></h1>
       <div class="table-responsive">
         <table id="mytable" class="table table-bordred table-striped">
           <thead>
@@ -91,17 +91,98 @@
           <tbody id="userlist">
             <script id="hidden-template" type="text/x-custom-template">
             <tr>
-              <td><input type="checkbox" class="checkthis" {{active}} /></td>
+              <td><span class="label label-{{active_class}}">{{active}}</span></td>
               <td>{{name}}</td>
               <td>{{ip}}</td>
               <td>{{last_login}}</td>
-              <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-              <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+              <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#dlgEditUser" data-user-obj="{{obj}}"><span class="glyphicon glyphicon-pencil"></span></button></p></td>
+              <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#dlgDeleteUser" data-user-obj="{{obj2}}"><span class="glyphicon glyphicon-trash"></span></button></p></td>
             </tr>
             </script>
           </tbody>
         </table>
         <div class="clearfix"></div>
+      </div>
+
+      <!-- Modal New User-->
+      <div class="modal fade" id="dlgNewUser" tabindex="-1" role="dialog" aria-labelledby="myNewLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myNewLabel">Add New User</h4>
+            </div>
+            <div class="modal-body">
+              <form id="newUserForm" class="form-signin">
+                <label for="inputUserAdd" class="sr-only">Username</label>
+                <input type="text" id="inputUserAdd" class="form-control" placeholder="Username" required autofocus>
+                <label for="inputPasswordAdd" class="sr-only">Password</label>
+                <input type="password" id="inputPasswordAdd" class="form-control" placeholder="Password" required>
+                <label for="inputIPAdd" class="sr-only">IP Address</label>
+                <input type="text" id="inputIPAdd" class="form-control" placeholder="IP Address">
+                <div class="checkbox">
+                  <label>
+                    <input id="inputActiveAdd" type="checkbox"> Active
+                  </label>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button id="btnNewUserSave" type="button" class="btn btn-success">Add User</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Edit User -->
+      <div class="modal fade" id="dlgEditUser" tabindex="-1" role="dialog" aria-labelledby="myEditLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myEditLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+              <form id="editUserForm" class="form-signin">
+                <label for="inputUserEdit" class="sr-only">Username</label>
+                <input type="text" id="inputUserEdit" class="form-control" placeholder="Username" required autofocus>
+                <label for="inputPasswordEdit" class="sr-only">Password</label>
+                <input type="password" id="inputPasswordEdit" class="form-control" placeholder="Password" required>
+                <label for="inputIPEdit" class="sr-only">IP Address</label>
+                <input type="text" id="inputIPEdit" class="form-control" placeholder="IP Address">
+                <div class="checkbox">
+                  <label>
+                    <input id="inputActiveEdit" type="checkbox"> Active
+                  </label>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button id="btnEditUserSave" type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Delete User-->
+      <div class="modal fade" id="dlgDeleteUser" tabindex="-1" role="dialog" aria-labelledby="myDeleteLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myDeleteLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+              <p id="deleteUserName"></p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button id="btnDeleteUser" type="button" class="btn btn-danger">Yes Delete User</button>
+            </div>
+          </div>
+        </div>
       </div>
 
     </div>
