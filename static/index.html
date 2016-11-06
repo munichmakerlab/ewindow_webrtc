@@ -43,67 +43,62 @@
         -webkit-transform: scale(-1, 1); -o-transform: scale(-1, 1); \
         transform: scale(-1, 1); filter: FlipH;
       }
-      .form-signin {
-        max-width: 330px;
-        padding: 15px;
-        margin: 0 auto;
+      #loginContainer {
+        margin-top: 20px;
       }
-      .form-signin .form-signin-heading,
-      .form-signin .checkbox {
-        margin-bottom: 10px;
-      }
-      .form-signin .checkbox {
-        font-weight: normal;
-      }
-      .form-signin .form-control {
-        position: relative;
-        height: auto;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-        padding: 10px;
-        font-size: 16px;
-      }
-      .form-signin .form-control:focus {
-        z-index: 2;
-      }
-      .form-signin input[type="email"] {
-        margin-bottom: -1px;
-        border-bottom-right-radius: 0;
-        border-bottom-left-radius: 0;
-      }
-      .form-signin input[type="text"] {
-        margin-bottom: 10px;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-      }
-	#backdrop {
-		width:100%;
-		height:100%;
-		padding-top:25%;
-		text-align: center;
-		color: #eee;
-		background: #ccc;
-		z-index: -120;
-		position: fixed;
-		top:0;
-		left:0;
-		font-size: 2em;
-		text-transform: uppercase;
-	}
-	</style>
+    	#backdrop {
+    		width:100%;
+    		height:100%;
+    		padding-top:25%;
+    		text-align: center;
+    		color: #eee;
+        background-repeat: no-repeat;
+        background: rgba(184,255,231,1);
+        background: -moz-linear-gradient(top, rgba(184,255,231,1) 0%, rgba(35,117,161,1) 100%);
+        background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(184,255,231,1)), color-stop(100%, rgba(35,117,161,1)));
+        background: -webkit-linear-gradient(top, rgba(184,255,231,1) 0%, rgba(35,117,161,1) 100%);
+        background: -o-linear-gradient(top, rgba(184,255,231,1) 0%, rgba(35,117,161,1) 100%);
+        background: -ms-linear-gradient(top, rgba(184,255,231,1) 0%, rgba(35,117,161,1) 100%);
+        background: linear-gradient(to bottom, rgba(184,255,231,1) 0%, rgba(35,117,161,1) 100%);
+    		/*background: #ccc;*/
+    		z-index: -120;
+    		position: fixed;
+    		top:0;
+    		left:0;
+    		font-size: 2em;
+    		text-transform: uppercase;
+    	}
+	  </style>
   </head>
   <body id="page">
     <div id="loginContainer" class="container">
-      <form id="loginForm" class="form-signin">
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <label for="inputUser" class="sr-only">Username</label>
-        <input type="text" id="inputUser" class="form-control" placeholder="Username" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-        <br/>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      </form>
+      <div class="row">
+        <div class="col-xs-8 col-xs-offset-2 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h3 class="panel-title">Login to eWindow</h3>
+            </div>
+            <div class="panel-body">
+              <form id="loginForm" class="form-horizontal" role="form">
+                <div style="margin-bottom: 10px" class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                  <input id="inputUser" type="text" class="form-control" name="username" value="" placeholder="username" required autofocus>
+                </div>
+                <div style="margin-bottom: 10px" class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                  <input id="inputPassword" type="password" class="form-control" name="password" placeholder="password" required>
+                </div>
+                <div style="margin-top:10px" class="form-group">
+                  <!-- Button -->
+                  <div class="col-sm-8 col-sm-offset-2 controls">
+                    <button class="btn  btn-primary btn-block" type="submit">Sign in</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </div> <!-- /container -->
 
     <button id="logout" type="button" class="btn btn-default btn-sm pull-right">
@@ -114,7 +109,7 @@
     </button>
 
     <div id="demoContainer">
-      <div id="connectControls" style="background:rgba(255,255,255,0.8); width: 20%; padding: 0.5em; border-radius: 0.3em;">
+      <div id="connectControls" class="well well-sm" style="background:rgba(255,255,255,0.8); width: 20%;">
 	      <strong>eWindow</strong>
         <div id="iam">Not yet connected...</div>
         <br />
@@ -130,7 +125,6 @@
       </div>
     </div>
     <div id="backdrop">Not connected</div>
-
 
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>

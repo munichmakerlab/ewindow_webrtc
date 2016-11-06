@@ -57,7 +57,7 @@ $(document).ready(function() {
   var token = localStorage.getItem("token");
   var username = localStorage.getItem("user");
   if (token) {
-    $('#loginForm').hide();
+    $('#loginContainer').hide();
     $('#logout').show(500);
     $('#demoContainer').show(500);
     if (username === 'eWindowMaster'){
@@ -65,7 +65,7 @@ $(document).ready(function() {
     }
     connect();
   } else {
-    $('#loginForm').show(500);
+    $('#loginContainer').show(500);
     $('#logout').hide();
     $('#demoContainer').hide();
     $('#admin').hide();
@@ -100,7 +100,7 @@ $("#logout").click(function(){
         localStorage.removeItem("token");
         var easyrtcid = localStorage.getItem("easyrtcid");
         easyrtc.hangup(easyrtcid);
-        $('#loginForm').show(500);
+        $('#loginContainer').show(500);
         $('#logout').hide();
         $('#demoContainer').hide();
         location.reload(true);
@@ -120,7 +120,7 @@ $('#loginForm button').click(function(){
     data: {name: username, password: password},
     success: function(data) {
       if (data.token) {
-        $('#loginForm').hide();
+        $('#loginContainer').hide();
         $('#logout').show(500);
         $('#demoContainer').show(500);
         localStorage.setItem("user", data.user.name);
@@ -189,8 +189,8 @@ function performCall(otherEasyrtcid) {
 
 function loginSuccess(easyrtcid) {
   localStorage.setItem("easyrtcid", easyrtcid);
-  document.getElementById("iam").innerHTML = "I am " + easyrtc.idToName(easyrtcid);
-  document.getElementById("backdrop").innerHTML = "Connected ... idle ..."
+  $('#iam').html('I am ' + easyrtc.idToName(easyrtcid));
+  $('#backdrop').html('Connected ... idle ...');
 }
 
 

@@ -12,6 +12,11 @@
       body {
         padding-top: 50px;
       }
+      .panel-heading
+      {
+        border-top-left-radius: inherit;
+        border-top-right-radius: inherit;
+      }
       .sub-header {
         padding-bottom: 10px;
         border-bottom: 1px solid #eee;
@@ -19,39 +24,15 @@
       .navbar-fixed-top {
         border: 0;
       }
-      .form-signin {
-        max-width: 330px;
-        padding: 15px;
-        margin: 0 auto;
-      }
-      .form-signin .form-signin-heading,
-      .form-signin .checkbox {
-        margin-bottom: 10px;
-      }
-      .form-signin .checkbox {
-        font-weight: normal;
-      }
-      .form-signin .form-control {
-        position: relative;
-        height: auto;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-        padding: 10px;
-        font-size: 16px;
-      }
-      .form-signin .form-control:focus {
-        z-index: 2;
-      }
-      .form-signin input[type="email"] {
-        margin-bottom: -1px;
-        border-bottom-right-radius: 0;
-        border-bottom-left-radius: 0;
-      }
-      .form-signin input[type="text"] {
-        margin-bottom: 10px;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
+      .modal {
+        background-repeat: no-repeat;
+        background: rgba(0,82,54,0.5);
+        background: -moz-linear-gradient(top, rgba(0,82,54,0.5) 0%, rgba(20,66,89,0.5) 100%);
+        background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(0,82,54,0.5)), color-stop(100%, rgba(20,66,89,0.5)));
+        background: -webkit-linear-gradient(top, rgba(0,82,54,0.5) 0%, rgba(20,66,89,0.5) 100%);
+        background: -o-linear-gradient(top, rgba(0,82,54,0.5) 0%, rgba(20,66,89,0.5) 100%);
+        background: -ms-linear-gradient(top, rgba(0,82,54,0.5) 0%, rgba(20,66,89,0.5) 100%);
+        background: linear-gradient(to bottom, rgba(0,82,54,0.5) 0%, rgba(20,66,89,0.5) 100%);
       }
 	  </style>
   </head>
@@ -107,23 +88,31 @@
       <!-- Modal New User-->
       <div class="modal fade" id="dlgNewUser" tabindex="-1" role="dialog" aria-labelledby="myNewLabel">
         <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
+          <div class="modal-content panel-success">
+            <div class="modal-header panel-heading">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title" id="myNewLabel">Add New User</h4>
             </div>
             <div class="modal-body">
-              <form id="newUserForm" class="form-signin">
-                <label for="inputUserAdd" class="sr-only">Username</label>
-                <input type="text" id="inputUserAdd" class="form-control" placeholder="Username" required autofocus>
-                <label for="inputPasswordAdd" class="sr-only">Password</label>
-                <input type="password" id="inputPasswordAdd" class="form-control" placeholder="Password" required>
-                <label for="inputIPAdd" class="sr-only">IP Address</label>
-                <input type="text" id="inputIPAdd" class="form-control" placeholder="IP Address">
-                <div class="checkbox">
-                  <label>
-                    <input id="inputActiveAdd" type="checkbox"> Active
-                  </label>
+              <form id="newUserForm" class="form-horizontal" role="form">
+                <div style="margin-bottom: 10px" class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                  <input id="inputUserAdd" type="text" class="form-control" name="username" value="" placeholder="username" required autofocus>
+                </div>
+                <div style="margin-bottom: 10px" class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                  <input id="inputPasswordAdd" type="password" class="form-control" name="password" placeholder="password" required>
+                </div>
+                <div style="margin-bottom: 10px" class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+                  <input id="inputIPAdd" type="text" class="form-control" name="ip" value="" placeholder="ip address" required>
+                </div>
+                <div class="input-group">
+                  <div class="checkbox">
+                    <label>
+                      <input id="inputActiveAdd" type="checkbox" name="active" value="0"> Active
+                    </label>
+                  </div>
                 </div>
               </form>
             </div>
@@ -138,23 +127,31 @@
       <!-- Modal Edit User -->
       <div class="modal fade" id="dlgEditUser" tabindex="-1" role="dialog" aria-labelledby="myEditLabel">
         <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
+          <div class="modal-content panel-primary">
+            <div class="modal-header panel-heading">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title" id="myEditLabel">Modal title</h4>
             </div>
             <div class="modal-body">
-              <form id="editUserForm" class="form-signin">
-                <label for="inputUserEdit" class="sr-only">Username</label>
-                <input type="text" id="inputUserEdit" class="form-control" placeholder="Username" required autofocus>
-                <label for="inputPasswordEdit" class="sr-only">Password</label>
-                <input type="password" id="inputPasswordEdit" class="form-control" placeholder="Password" required>
-                <label for="inputIPEdit" class="sr-only">IP Address</label>
-                <input type="text" id="inputIPEdit" class="form-control" placeholder="IP Address">
-                <div class="checkbox">
-                  <label>
-                    <input id="inputActiveEdit" type="checkbox"> Active
-                  </label>
+              <form id="editUserForm" class="form-horizontal" role="form">
+                <div style="margin-bottom: 10px" class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                  <input id="inputUserEdit" type="text" class="form-control" name="username" value="" placeholder="username" required autofocus>
+                </div>
+                <div style="margin-bottom: 10px" class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                  <input id="inputPasswordEdit" type="password" class="form-control" name="password" placeholder="password" required>
+                </div>
+                <div style="margin-bottom: 10px" class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+                  <input id="inputIPEdit" type="text" class="form-control" name="ip" value="" placeholder="ip address" required>
+                </div>
+                <div class="input-group">
+                  <div class="checkbox">
+                    <label>
+                      <input id="inputActiveEdit" type="checkbox" name="active"> Active
+                    </label>
+                  </div>
                 </div>
               </form>
             </div>
@@ -169,8 +166,8 @@
       <!-- Modal Delete User-->
       <div class="modal fade" id="dlgDeleteUser" tabindex="-1" role="dialog" aria-labelledby="myDeleteLabel">
         <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
+          <div class="modal-content panel-danger">
+            <div class="modal-header panel-heading">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title" id="myDeleteLabel">Modal title</h4>
             </div>
