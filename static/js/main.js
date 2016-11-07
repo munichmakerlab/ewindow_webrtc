@@ -70,21 +70,6 @@ $(document).ready(function() {
   }
 });
 
-var pauseMode = false;
-$('#pause').click(function(){
-  $(this).find('span').toggleClass('glyphicon-pause', pauseMode);
-  $(this).find('span').toggleClass('glyphicon-play', !pauseMode);
-  // uncomment to test effect
-  //$('#selfVideo').toggleClass('blurred', !pauseMode);
-  $('#callerVideo').toggleClass('blurred', !pauseMode);
-  pauseMode = !pauseMode;
-});
-
-
-$('#selfVideo').click(function() {
-  $(this).toggleClass('reflection');
-});
-
 
 $("#admin").click(function(){
   var token = localStorage.getItem("token");
