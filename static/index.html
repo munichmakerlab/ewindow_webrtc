@@ -39,9 +39,11 @@
         z-index: -80;
       }
       .mirrored {
-        -moz-transform: scale(-1, 1); \
-        -webkit-transform: scale(-1, 1); -o-transform: scale(-1, 1); \
-        transform: scale(-1, 1); filter: FlipH;
+        -moz-transform: scale(-1, 1);
+        -webkit-transform: scale(-1, 1);
+        -o-transform: scale(-1, 1);
+        transform: scale(-1, 1);
+        filter: FlipH;
       }
       #loginContainer {
         margin-top: 20px;
@@ -73,10 +75,15 @@
         border-color: #337ab7;
         color: #FFFFFF;
       }
-      .alpha {
+      .alpha-50 {
         filter: alpha(opacity=50);
         -moz-opacity: 0.5;
         opacity: 0.5;
+      }
+      .alpha-75 {
+        filter: alpha(opacity=75);
+        -moz-opacity: 0.75;
+        opacity: 0.75;
       }
 	  </style>
   </head>
@@ -119,7 +126,7 @@
     </button>
 
     <div id="demoContainer">
-      <div id="connectControls" class="panel panel-primary alpha" style="width: 20%;">
+      <div id="connectControls" class="panel panel-primary alpha-50" style="width: 20%;">
           <div class="panel-heading">
             <h3 class="panel-title">eWindow</h3>
           </div>
@@ -133,7 +140,7 @@
         </div>
       </div>
       <div id="videos">
-        <video autoplay="autoplay" class="easyrtcMirror ontopVideo mirrored" id="selfVideo" muted="muted" volume="0"></video>
+        <video autoplay="autoplay" class="easyrtcMirror ontopVideo mirrored thumbnail" id="selfVideo" muted="muted" volume="0"></video>
         <div style="position:relative;float:left;">
         <video autoplay="autoplay" id="callerVideo" class="bigVideo"></video>
         </div>
