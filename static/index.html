@@ -38,6 +38,16 @@
         height: auto;
         z-index: -80;
       }
+      .reflection {
+        -webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(70%, transparent) , to(rgba(250, 250, 250, 0.1)));
+      }
+      .blurred {
+        -webkit-filter: blur(50px);
+        -moz-filter: blur(50px);
+        -o-filter: blur(50px);
+        -ms-filter: blur(50px);
+        filter: blur(50px);
+      }
       .mirrored {
         -moz-transform: scale(-1, 1);
         -webkit-transform: scale(-1, 1);
@@ -123,6 +133,9 @@
     </button>
     <button id="admin" type="button" class="btn btn-default btn-sm pull-right">
       <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+    </button>
+    <button id="pause" type="button" class="btn btn-default btn-sm pull-right">
+      <span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
     </button>
 
     <div id="demoContainer">
