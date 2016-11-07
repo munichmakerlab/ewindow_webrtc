@@ -23,32 +23,30 @@ var QueryString = function () {
 }();
 // ----
 
+
 document.addEventListener('keydown', (event) => {
   const keyName = event.key;
-
   if (keyName === 'Control') {
     // not alert when only Control key is pressed.
     return;
   }
-
   if (keyName === "a") {
     console.log(`Key pressed ${keyName}`);
   } else if (keyName === "b") {
     if ( easyrtc.getConnectionCount() > 0 ) {
       easyrtc.hangupAll();
-  } else {
-
-	  var len = 0;
-	  var easyrtcid;
-	  for(easyrtcid in window.otherOccupants) {
-		  len++;
-	  }
-	  if (len == 1) {
-	  	performCall(easyrtcid);
-	  } else {
-		  console.log("more than one");
-	  }
-  }
+    } else {
+  	  var len = 0;
+  	  var easyrtcid;
+  	  for(easyrtcid in window.otherOccupants) {
+  		  len++;
+  	  }
+  	  if (len == 1) {
+  	  	performCall(easyrtcid);
+  	  } else {
+  		  console.log("more than one");
+  	  }
+    }
   }
 }, false);
 
@@ -147,40 +145,47 @@ function connect() {
 
 
 function clearConnectList() {
-  var otherClientDiv = document.getElementById("otherClients");
-  while (otherClientDiv.hasChildNodes()) {
-    otherClientDiv.removeChild(otherClientDiv.lastChild);
-  }
+  // remove all children of #otherClients
+  $('#otherClients').empty();
 }
 
 
 function convertListToButtons (roomName, data, isPrimary) {
   clearConnectList();
-  var otherClientDiv = document.getElementById("otherClients");
-  window.otherOccupants = data;
-  for(var easyrtcid in data) {
-    var button = document.createElement("span");
-    button.onclick = function(easyrtcid) {
-      return function() {
-        performCall(easyrtcid);
-      };
-    }(easyrtcid);
-	var txt = easyrtc.idToName(easyrtcid)
-	if( easyrtc.getConnectStatus(easyrtcid) == easyrtc.NOT_CONNECTED ){
-		txt += " (idle)";
-	} else {
-		txt += " (in call)";
-	}
-    var label = document.createTextNode(txt);
-    button.appendChild(label);
-    otherClientDiv.appendChild(button);
-  }
+  // add all clients
+  $.each(data, function(i, easyrtcid) {
+    var btnText = easyrtc.idToName(easyrtcid);
+    var btnClass = '';
+    var lblText = '';
+    var lblClass = 'label-default';
+  	if (easyrtc.getConnectStatus(easyrtcid) == easyrtc.NOT_CONNECTED) {
+  		lblText   = 'idle';
+      lblClass  = 'label-warning';
+      btnClass  = 'list-group-item-warning';
+  	} else {
+  		lblText   = 'in call';
+      lblClass  = 'label-success';
+      btnClass  = 'list-group-item-success progress-bar-striped';
+  	}
+    var btn = $('<button/>',{
+        text: btnText,
+        type: 'button',
+        class: 'list-group-item ' + btnClass,
+        click: function(){
+          performCall(easyrtcid);
+        }
+    });
+    var lbl = $('<span/>',{
+      text: lblText,
+      class: 'label pull-right progress-bar-striped ' + lblClass
+    }).appendTo(btn);
+    btn.appendTo('#otherClients');
+  });
 }
 
 
 function performCall(otherEasyrtcid) {
   easyrtc.hangupAll();
-
   var successCB = function() {};
   var failureCB = function() {};
   easyrtc.call(otherEasyrtcid, successCB, failureCB);

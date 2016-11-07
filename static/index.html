@@ -68,6 +68,16 @@
     		font-size: 2em;
     		text-transform: uppercase;
     	}
+      .panel-footer{
+        background-color:#337ab7;
+        border-color: #337ab7;
+        color: #FFFFFF;
+      }
+      .alpha {
+        filter: alpha(opacity=50);
+        -moz-opacity: 0.5;
+        opacity: 0.5;
+      }
 	  </style>
   </head>
   <body id="page">
@@ -109,12 +119,18 @@
     </button>
 
     <div id="demoContainer">
-      <div id="connectControls" class="well well-sm" style="background:rgba(255,255,255,0.8); width: 20%;">
-	      <strong>eWindow</strong>
-        <div id="iam">Not yet connected...</div>
-        <br />
-        <strong>Connected users:</strong>
-        <div id="otherClients"></div>
+      <div id="connectControls" class="panel panel-primary alpha" style="width: 20%;">
+          <div class="panel-heading">
+            <h3 class="panel-title">eWindow</h3>
+          </div>
+          <div class="panel-body">
+            <strong>Connected users:</strong>
+            <div id="otherClients" class="list-group">
+              <!-- dynamically load users here -->
+            </div>
+          </div>
+          <div class="panel-footer progress-bar-striped" id="iam">Not yet connected...</div>
+        </div>
       </div>
       <div id="videos">
         <video autoplay="autoplay" class="easyrtcMirror ontopVideo mirrored" id="selfVideo" muted="muted" volume="0"></video>
