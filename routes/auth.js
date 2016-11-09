@@ -14,7 +14,13 @@ router.get('/setup', function(req, res) {
       return res.status(404).json({err: 'Error occured: ' + err});
     } else {
       if (user) {
-        return res.status(404).json({err: 'Admin user already exists!'});
+        User.findByIdAndUpdate(user._id, {token: ''}, function(err, userUpdate) {
+          if (err) {
+            return res.status(400).json({err: 'Error occured: ' + err});
+          } else {
+            return res.status(500).json({err: 'Admin user already exists!'});
+          }
+        });
       } else {
         // create a sample admin user
         var hashPassword = Auth.sha512(config.secret);
@@ -96,16 +102,26 @@ router.post('/signin/', function(req, res) {
 
 /* POST /auth/logout/ */
 router.post('/logout/', function(req, res) {
+  console.log('logout');
+  console.log(req.body);
   if (!req.body.token) {
     return res.json({err: 'No token found'});
   }
+  console.log(req.body.token);
+  User.find(function(err, user){
+    console.log('err' + err);
+    console.log(user);
+  });
   User.findOne({'token': req.body.token}, function(err, user) {
     if (err) {
       return res.json({err: 'Error occured: ' + err});
     } else {
+      console.log(user);
       if (user) {
-        user.token = "";
-        user.save(function(err, userUpdate) {
+        User.findByIdAndUpdate(user._id, {token: ''}, function(err, userUpdate) {
+          if (err) {
+            return res.json({err: 'Error occured: ' + err});
+          }
           console.log(userUpdate);
           return res.status(200).json({status: 'Logout User "' + userUpdate.name + '" successful.'});
         });

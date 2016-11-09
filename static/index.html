@@ -41,7 +41,21 @@
       .reflection {
         -webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(70%, transparent) , to(rgba(250, 250, 250, 0.1)));
       }
-      .blurred {
+      .no-blur {
+        -webkit-filter: blur(0px);
+        -moz-filter: blur(0px);
+        -o-filter: blur(0px);
+        -ms-filter: blur(0px);
+        filter: blur(0px);
+      }
+      .blur-5 {
+        -webkit-filter: blur(5px);
+        -moz-filter: blur(5px);
+        -o-filter: blur(5px);
+        -ms-filter: blur(5px);
+        filter: blur(5px);
+      }
+      .blur-50 {
         -webkit-filter: blur(50px);
         -moz-filter: blur(50px);
         -o-filter: blur(50px);
@@ -113,12 +127,11 @@
                 </div>
                 <div style="margin-bottom: 10px" class="input-group">
                   <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                  <input id="inputPassword" type="password" class="form-control" name="password" placeholder="password" required>
+                  <input id="inputPassword" type="text" class="form-control" name="password" placeholder="password" required>
                 </div>
                 <div style="margin-top:10px" class="form-group">
-                  <!-- Button -->
                   <div class="col-sm-8 col-sm-offset-2 controls">
-                    <button class="btn  btn-primary btn-block" type="submit">Sign in</button>
+                    <button id="signin" class="btn btn-primary btn-block" type="button">Sign in</button>
                   </div>
                 </div>
               </form>
