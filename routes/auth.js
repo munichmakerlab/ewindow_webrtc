@@ -58,7 +58,6 @@ router.post('/authenticate', function (req, res) {
           user.last_login = new Date();
           user.token = jwt.sign({name: user.name}, config.secret, {expiresIn: '10 years'});
           user.save(function(err, userUpdate) {
-            console.log(userUpdate);
             return res.status(200).json({user: userUpdate, token: userUpdate.token});
           });
         } else {
@@ -102,27 +101,18 @@ router.post('/signin/', function(req, res) {
 
 /* POST /auth/logout/ */
 router.post('/logout/', function(req, res) {
-  console.log('logout');
-  console.log(req.body);
   if (!req.body.token) {
     return res.status(404).json({err: 'No token found'});
   }
-  console.log(req.body.token);
-  User.find(function(err, user){
-    console.log('err' + err);
-    console.log(user);
-  });
   User.findOne({'token': req.body.token}, function(err, user) {
     if (err) {
       return res.json({err: 'Error occured: ' + err});
     } else {
-      console.log(user);
       if (user) {
         User.findByIdAndUpdate(user._id, {token: ''}, function(err, userUpdate) {
           if (err) {
             return res.json({err: 'Error occured: ' + err});
           }
-          console.log(userUpdate);
           return res.status(200).json({status: 'Logout User "' + userUpdate.name + '" successful.'});
         });
       } else {
