@@ -16,9 +16,9 @@ router.get('/setup', function(req, res) {
       if (user) {
         User.findByIdAndUpdate(user._id, {token: ''}, function(err, userUpdate) {
           if (err) {
-            return res.status(400).json({err: 'Error occured: ' + err});
+            return res.status(404).json({err: 'Error occured: ' + err});
           } else {
-            return res.status(500).json({err: 'Admin user already exists!'});
+            return res.status(404).json({err: 'Admin user already exists!'});
           }
         });
       } else {
@@ -33,7 +33,7 @@ router.get('/setup', function(req, res) {
         adminUser.save(function(err, user) {
           user.token = jwt.sign({name: user.name}, config.secret, {expiresIn: '10 years'});
           user.save(function(err, userNew) {
-            return res.json({user: userNew, token: userNew.token});
+            return res.status(200).json({user: userNew, token: userNew.token});
           });
         });
       }
@@ -52,37 +52,37 @@ router.post('/authenticate', function (req, res) {
     var hashPassword = Auth.sha512(password);
     User.findOne({'name': regexUsername, 'password': hashPassword, 'active': true}, function(err, user) {
       if (err) {
-        return res.status(400).json({err: 'Error occured: ' + err});
+        return res.status(404).json({err: 'Error occured: ' + err});
       } else {
         if (user) {
           user.last_login = new Date();
           user.token = jwt.sign({name: user.name}, config.secret, {expiresIn: '10 years'});
           user.save(function(err, userUpdate) {
             console.log(userUpdate);
-            return res.json({user: userUpdate, token: userUpdate.token});
+            return res.status(200).json({user: userUpdate, token: userUpdate.token});
           });
         } else {
-          return res.status(401).json({err: 'Wrong user or password or deactive'});
+          return res.status(404).json({err: 'Wrong user or password or deactive'});
         }
       }
     });
   } else {
-    return res.status(400).json({err: 'No username or password supplied'});
+    return res.status(404).json({err: 'No username or password supplied'});
   }
 });
 
 /* POST /auth/signin/ */
 router.post('/signin/', function(req, res) {
   if (req.body.password !== req.body.confirmPassword) {
-    return res.status(401).json({err: 'Password doesn\'t match'});
+    return res.status(404).json({err: 'Password doesn\'t match'});
   }
   var hashPassword = Auth.sha512(req.body.password);
   User.findOne({'name': req.body.name}, function(err, user) {
     if (err) {
-      return res.status(401).json({err: 'Error occured: ' + err});
+      return res.status(404).json({err: 'Error occured: ' + err});
     } else {
       if (user) {
-        return res.status(401).json({err: 'User already exists!'});
+        return res.status(404).json({err: 'User already exists!'});
       } else {
         var newUser = new User();
         newUser._id = mongoose.Types.ObjectId();
@@ -92,7 +92,7 @@ router.post('/signin/', function(req, res) {
         newUser.save(function(err, user) {
           user.token = jwt.sign({name: user.name}, config.secret, {expiresIn: '10 years'});
           user.save(function(err, userNew) {
-            return res.json({user: userNew, token: userNew.token});
+            return res.status(200).json({user: userNew, token: userNew.token});
           });
         });
       }
@@ -105,7 +105,7 @@ router.post('/logout/', function(req, res) {
   console.log('logout');
   console.log(req.body);
   if (!req.body.token) {
-    return res.json({err: 'No token found'});
+    return res.status(404).json({err: 'No token found'});
   }
   console.log(req.body.token);
   User.find(function(err, user){
@@ -126,7 +126,7 @@ router.post('/logout/', function(req, res) {
           return res.status(200).json({status: 'Logout User "' + userUpdate.name + '" successful.'});
         });
       } else {
-        return res.json({err: 'No User Authorization found'});
+        return res.status(401).json({err: 'No User Authorization found'});
       }
     }
   });
