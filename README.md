@@ -26,7 +26,7 @@ Based off of EasyRTC: https://github.com/priologic/easyrtc
 ## Setup production server
 Setup a production server using docker. Automatically generates TLS certificates for the service.
 
-```
+```bash
 # Install Docker
 curl -sSL https://get.docker.com/ | sh
 
@@ -67,11 +67,13 @@ docker run -d \
 
 ## Setup Dev Server
 * Install requirements
-  `npm install easyrtc express socket.io@0.9.16`
+  ```bash
+  npm install easyrtc express socket.io@0.9.16
+  ```
 
 * Create selfsigned TLS certificate, e.g. using GnuTLS certtool:
 
-```
+  ```bash
 cat <<EOF >ca.cfg
 cn = munichmakes.de
 ca
@@ -103,9 +105,12 @@ certtool --generate-certificate \
     --template slapd.cfg \
     --outfile ewindow_cert.pem \
     --sec-param high
-```
+  ```
 
-* Run it: `node secure_server.js dev`
+* Run it: 
+  ```bash
+  node secure_server.js dev
+  ```
 
 ## Setup Client
 Using a RPi 3
