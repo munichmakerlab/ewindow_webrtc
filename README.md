@@ -102,7 +102,7 @@ certtool --generate-certificate \
     --load-privkey ewindow_key.pem \
     --load-ca-certificate cacert.pem \
     --load-ca-privkey cakey.pem \
-    --template slapd.cfg \
+    --template ewindow.cfg \
     --outfile ewindow_cert.pem \
     --sec-param high
   ```
