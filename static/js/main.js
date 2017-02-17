@@ -76,14 +76,19 @@ function convertListToButtons (roomName, data, isPrimary) {
   var otherClientDiv = document.getElementById("otherClients");
   window.otherOccupants = data;
   for(var easyrtcid in data) {
-    var button = document.createElement("button");
+    var button = document.createElement("span");
     button.onclick = function(easyrtcid) {
       return function() {
         performCall(easyrtcid);
       };
     }(easyrtcid);
-
-    var label = document.createTextNode(easyrtc.idToName(easyrtcid));
+	var txt = easyrtc.idToName(easyrtcid)
+	if( easyrtc.getConnectStatus(easyrtcid) == easyrtc.NOT_CONNECTED ){
+		txt += " (idle)";
+	} else {
+		txt += " (in call)";
+	}
+    var label = document.createTextNode(txt);
     button.appendChild(label);
     otherClientDiv.appendChild(button);
   }
@@ -102,7 +107,7 @@ function performCall(otherEasyrtcid) {
 function loginSuccess(easyrtcid) {
   selfEasyrtcid = easyrtcid;
   document.getElementById("iam").innerHTML = "I am " + easyrtc.idToName(easyrtcid);
-  easyrtc.updatePresence("chat", "idle");
+  document.getElementById("backdrop").innerHTML = "Connected ... idle ..."
 }
 
 

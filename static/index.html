@@ -9,6 +9,9 @@
     <script type="text/javascript" src="/easyrtc/easyrtc.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
     <style>
+     body {
+         font-family: sans-serif;
+       }
 	video.bigVideo	 {
     position: fixed;
     top: 50%;
@@ -39,7 +42,21 @@ z-index: -80;
 -webkit-transform: scale(-1, 1); -o-transform: scale(-1, 1); \
 transform: scale(-1, 1); filter: FlipH;
 }
-	</style>
+ 	#backdrop {
+ 		width:100%;
+ 		height:100%;
+ 		padding-top:25%;
+ 		text-align: center;
+ 		color: #eee;
+ 		background: #ccc;
+ 		z-index: -120;
+ 		position: fixed;
+ 		top:0;
+ 		left:0;
+ 		font-size: 2em;
+ 		text-transform: uppercase;
+ 	}
+ 	</style>
   </head>
   <body onload="connect();">
         <div id="demoContainer">
@@ -58,5 +75,6 @@ transform: scale(-1, 1); filter: FlipH;
             <!-- each caller video needs to be in it"s own div so it"s close button can be positioned correctly -->
           </div>
         </div>
+		<div id="backdrop">Not connected</div>
   </body>
 </html>
