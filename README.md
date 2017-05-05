@@ -116,4 +116,5 @@ Using a RPi 3
 * Chromium is now part of the standard image
 * Rotate screen if necessary: Add ```display_rotate=3``` to ```/boot/config.txt``` ([Details](https://www.raspberrypi.org/forums/viewtopic.php?f=108&t=120793))
 * Disable screen blanking ([howto](https://www.raspberrypi.org/forums/viewtopic.php?f=66&t=18200))
-* Put Chromium into Autostart ([howto, option ".desktop"](https://raspberry.tips/raspberrypi-einsteiger/raspberry-pi-autostart-von-skripten-und-programmen-einrichten/))
+* Put Chromium into Autostart ([howto, option ".desktop"](https://raspberry.tips/raspberrypi-einsteiger/raspberry-pi-autostart-von-skripten-und-programmen-einrichten/), [more information to chromium start options](https://raspberrypi.stackexchange.com/questions/38515/auto-start-chromium-on-raspbian-jessie-11-2015))
+  * [Chromium start options](http://peter.sh/experiments/chromium-command-line-switches/)
